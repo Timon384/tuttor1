@@ -13,6 +13,8 @@
     var vyPos = 9;
     var xplayer2 = 800;
     var yplayer2 = 230
+    /*play.onmousemove = playerMove;
+    play.onclick = startGame;*/
 
     player1.src ="img/timon.png";
     player2.src ="img/pumba.png";
@@ -21,7 +23,8 @@
     pipes.src = "img/pipe.png";
     bg.src = "img/bg.jpg";
 // Отрисовка игры
-function draw() {
+
+    function draw() {
     context.drawImage(bg, 0, 0);
     context.drawImage(ball,  xPos, yPos);
     context.drawImage(hookah, 0, 50);
@@ -33,8 +36,9 @@ function draw() {
         context.fillRect(play.width / 2 - 10, i, 20, 30);
     }
     ballMove();
+    aiMove()
 
-}
+    }
 // движение мяча
     function ballMove() {
     wall();
@@ -44,8 +48,8 @@ function draw() {
 
     }
 // Обработка пересечения с полями
-function wall() {
-    if (xPos + ball.width <= play.width && yPos + ball.height+vyPos < play.height &&   xPos >= 0 && yPos + vyPos > 0 ) {
+    function wall() {
+    if (xPos + ball.width <= play.width && yPos + ball.height+vyPos < play.height &&   xPos >= 0 && yPos + vyPos > 0 ) { alert(xPos + "," + yPos + "," + vxPos + "," + vyPos + "," + ",№1");
         vxPos =    vxPos;
         vyPos =    vyPos;
         // строка для отладки alert(xPos + "," + yPos + "," + vxPos + "," + vyPos + "," + play.width + "," + play.height + ",№1");
@@ -63,10 +67,11 @@ function wall() {
         vyPos =   - vyPos;
     }
 
-}
+    }
 //движение "ИИ"
     function aiMove() {
         var y;
+        var vY;
         // делаем скорость оппонента зависимой от скорости шарика
         switch (vyPos) {
             case 2:
@@ -82,30 +87,30 @@ function wall() {
                 vY = 5;
                 break;
             case 6:
-                vY = 5;
+                vY = 6;
                 break;
             case 7:
-                vY = 6;
+                vY = 7;
                 break;
             case 8:
-                vY = 6;
+                vY = 8;
                 break;
             case 9:
-                vY = 6;
+                vY = 9;
                 break;
             case 0:
                 vY = 0;
                 break;
         }
 
-        if (yPos < player2.y + player2.height / 2) {
-            y = player2.y - vY;
+        if (yPos < yplayer2 + player2.height / 2) {
+            y = yplayer2 - vY; alert("y=" + y + ", yplayer2=" + yplayer2 + ", player2.height=" + player2.height +", vY=" + vY + ", yPos=" +yPos);
         }
-        if (ball.y > ai.y + ai.height / 2) {
-            y = ai.y + vY;
+        if (ball.y > yplayer2 + player2.height / 2) {
+            y = yplayer2 + vY;
         }
-        if (10 < y && y < game.height - ai.height - 10) {
-            ai.y = y;
+        if (10 < y && y < play.height - player2.height - 10) {
+            yplayer2 = y;
         }
     }
 
