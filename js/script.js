@@ -11,6 +11,8 @@
     var yPos=230;
     var vxPos= 9;
     var vyPos = 9;
+    var xplayer2 = 800;
+    var yplayer2 = 230
 
     player1.src ="img/timon.png";
     player2.src ="img/pumba.png";
@@ -24,7 +26,7 @@ function draw() {
     context.drawImage(ball,  xPos, yPos);
     context.drawImage(hookah, 0, 50);
     context.drawImage(player1, 100, 230);
-    context.drawImage(player2, 800, 230);
+    context.drawImage(player2, xplayer2, yplayer2);
     // отображение разделителя поля
     for (var i = 10; i < play.height; i += 45) {
         context.fillStyle = "#ccc";
