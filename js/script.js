@@ -11,9 +11,10 @@
     var yPos=230;
     var vxPos= 3;
     var vyPos = 3;
-    var xplayer2 = 890;
-    var yplayer2 = 300;
+    var player2Xpos = 890;
+    var player2YPos = 300;
     var player1YPos =200;
+    var player1XPos =30;
     document.addEventListener('mousemove', playerMove);
     /*play.onmousemove = playerMove;
     play.onclick = startGame;*/
@@ -30,8 +31,8 @@
     context.drawImage(bg, 0, 0);
     context.drawImage(ball,  xPos, yPos);
     context.drawImage(hookah, 0, 50);
-    context.drawImage(player1, 30, player1YPos );
-    context.drawImage(player2, xplayer2, yplayer2);
+    context.drawImage(player1, player1XPos, player1YPos );
+    context.drawImage(player2, player2Xpos, player2YPos);
     // отображение разделителя поля
     for (var i = 10; i < play.height; i += 45) {
         context.fillStyle = "#ccc";
@@ -44,7 +45,7 @@
     }
 // движение мяча
     function ballMove() {
-        aiMove()
+        aiMove();
 
     wall();
         xPos += vxPos;
@@ -65,14 +66,21 @@
         vxPos =  - vxPos;
         vyPos =    vyPos;
     } else if (xPos <= 0 && vyPos > 0 && vxPos < 0 ){
-        vxPos =   - vxPos;
-        vyPos =     vyPos;
+        vxPos =  - vxPos;
+        vyPos =    vyPos;
     } else {
-        vxPos =     vxPos;
-        vyPos =   - vyPos;
+        vxPos =    vxPos;
+        vyPos =  - vyPos;
+    }
+    if ((player1XPos + player1.width > xPos && player1XPos < xPos +ball.width && player1YPos +player1.height > yPos && player1YPos < yPos + ball.height && vxPos<0) ||
+    player2Xpos + player2.width > xPos && player2Xpos < xPos + ball.width && player2YPos + player2.height > yPos && player2YPos < yPos + ball.height && vxPos>0) {
+        vxPos =  - vxPos;
+    }
+    /*if ((collision(player1, ball) && vxPos<0) || (collision(player2, ball) && vxPos>0)){
+        vxPos =  - vxPos;
+    }*/
     }
 
-    }
 //движение "ИИ"
     function aiMove() {
         var y;
@@ -108,19 +116,18 @@
                 break;
         }
 
-        if (yPos < yplayer2 + player2.height / 2) {
-            y = yplayer2 - vY-2; // alert("y=" + y + ", yplayer2=" + yplayer2 + ", player2.height=" + player2.height +", vY=" + vY + ", yPos=" +yPos);
+        if (yPos < player2YPos + player2.height / 2) {
+            y = player2YPos - vY-2; // alert("y=" + y + ", player2YPos=" + player2YPos + ", player2.height=" + player2.height +", vY=" + vY + ", yPos=" +yPos);
         }
-        if (yPos > yplayer2 + player2.height / 2) {
-            y = yplayer2 + vY+2;
+        if (yPos > player2YPos + player2.height / 2) {
+            y = player2YPos + vY+2;
         }
         if (10 < y && y < play.height - player2.height - 5) {
-            yplayer2 = y;
+            player2YPos = y;
         }
     }
 
 //движение игрока
-
     function playerMove(e) {
 
         var y = e.pageY;
@@ -128,24 +135,12 @@
         if (player1.height / 2 + 10 < y && y < play.height - player1.height / 2 - 10) {
             // привязываем положение мыши к середине ракетки
             player1YPos = y - player1.height / 2;
-            console.log(play.height)
         }
 
     }
 
-
-
 //ожидание загрузки последней картинки
 bg.onload = draw;
-
-
-/*function startGame() {
-      if (!start) {
-            ball.vX = -2;
-            ball.vY = 2;
-            start = true;
-      }
-    }*/
 
 
 
