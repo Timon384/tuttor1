@@ -9,10 +9,12 @@
     var pipes = new Image();
     var xPos=400;
     var yPos=230;
-    var vxPos= 9;
-    var vyPos = 9;
-    var xplayer2 = 800;
-    var yplayer2 = 230
+    var vxPos= 3;
+    var vyPos = 3;
+    var xplayer2 = 890;
+    var yplayer2 = 300;
+    var player1YPos =200;
+    document.addEventListener('mousemove', playerMove);
     /*play.onmousemove = playerMove;
     play.onclick = startGame;*/
 
@@ -28,7 +30,7 @@
     context.drawImage(bg, 0, 0);
     context.drawImage(ball,  xPos, yPos);
     context.drawImage(hookah, 0, 50);
-    context.drawImage(player1, 100, 230);
+    context.drawImage(player1, 30, player1YPos );
     context.drawImage(player2, xplayer2, yplayer2);
     // отображение разделителя поля
     for (var i = 10; i < play.height; i += 45) {
@@ -36,11 +38,14 @@
         context.fillRect(play.width / 2 - 10, i, 20, 30);
     }
     ballMove();
-    aiMove()
+
+
 
     }
 // движение мяча
     function ballMove() {
+        aiMove()
+
     wall();
         xPos += vxPos;
         yPos += vyPos;
@@ -49,7 +54,7 @@
     }
 // Обработка пересечения с полями
     function wall() {
-    if (xPos + ball.width <= play.width && yPos + ball.height+vyPos < play.height &&   xPos >= 0 && yPos + vyPos > 0 ) { alert(xPos + "," + yPos + "," + vxPos + "," + vyPos + "," + ",№1");
+    if (xPos + ball.width <= play.width && yPos + ball.height+vyPos < play.height &&   xPos >= 0 && yPos + vyPos > 0 ) { //alert(xPos + "," + yPos + "," + vxPos + "," + vyPos + "," + ",№1");
         vxPos =    vxPos;
         vyPos =    vyPos;
         // строка для отладки alert(xPos + "," + yPos + "," + vxPos + "," + vyPos + "," + play.width + "," + play.height + ",№1");
@@ -87,16 +92,16 @@
                 vY = 5;
                 break;
             case 6:
-                vY = 6;
+                vY = 5;
                 break;
             case 7:
-                vY = 7;
+                vY = 6;
                 break;
             case 8:
-                vY = 8;
+                vY = 6;
                 break;
             case 9:
-                vY = 9;
+                vY = 7;
                 break;
             case 0:
                 vY = 0;
@@ -104,14 +109,28 @@
         }
 
         if (yPos < yplayer2 + player2.height / 2) {
-            y = yplayer2 - vY; alert("y=" + y + ", yplayer2=" + yplayer2 + ", player2.height=" + player2.height +", vY=" + vY + ", yPos=" +yPos);
+            y = yplayer2 - vY-2; // alert("y=" + y + ", yplayer2=" + yplayer2 + ", player2.height=" + player2.height +", vY=" + vY + ", yPos=" +yPos);
         }
-        if (ball.y > yplayer2 + player2.height / 2) {
-            y = yplayer2 + vY;
+        if (yPos > yplayer2 + player2.height / 2) {
+            y = yplayer2 + vY+2;
         }
-        if (10 < y && y < play.height - player2.height - 10) {
+        if (10 < y && y < play.height - player2.height - 5) {
             yplayer2 = y;
         }
+    }
+
+//движение игрока
+
+    function playerMove(e) {
+
+        var y = e.pageY;
+        // условие проверяет не выходит ли ракетка за пределы поля
+        if (player1.height / 2 + 10 < y && y < play.height - player1.height / 2 - 10) {
+            // привязываем положение мыши к середине ракетки
+            player1YPos = y - player1.height / 2;
+            console.log(play.height)
+        }
+
     }
 
 
