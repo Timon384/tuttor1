@@ -13,12 +13,9 @@
     var vyPos = 3;
     var player2Xpos = 890;
     var player2YPos = 300;
+    var player1XPos =0;
     var player1YPos =200;
-    var player1XPos =30;
     document.addEventListener('mousemove', playerMove);
-    /*play.onmousemove = playerMove;
-    play.onclick = startGame;*/
-
     player1.src ="img/timon.png";
     player2.src ="img/pumba.png";
     hookah.src = "img/hookah.png";
@@ -28,9 +25,12 @@
 // Отрисовка игры
 
     function draw() {
+        ballMove();
+        aiMove();
+        wall();
     context.drawImage(bg, 0, 0);
-    context.drawImage(ball,  xPos, yPos);
     context.drawImage(hookah, 0, 50);
+    context.drawImage(ball,  xPos, yPos);
     context.drawImage(player1, player1XPos, player1YPos );
     context.drawImage(player2, player2Xpos, player2YPos);
     // отображение разделителя поля
@@ -38,16 +38,9 @@
         context.fillStyle = "#ccc";
         context.fillRect(play.width / 2 - 10, i, 20, 30);
     }
-    ballMove();
-
-
-
     }
 // движение мяча
     function ballMove() {
-        aiMove();
-
-    wall();
         xPos += vxPos;
         yPos += vyPos;
         requestAnimationFrame(draw);
@@ -117,10 +110,10 @@
         }
 
         if (yPos < player2YPos + player2.height / 2) {
-            y = player2YPos - vY-2; // alert("y=" + y + ", player2YPos=" + player2YPos + ", player2.height=" + player2.height +", vY=" + vY + ", yPos=" +yPos);
+            y = player2YPos - vY;
         }
         if (yPos > player2YPos + player2.height / 2) {
-            y = player2YPos + vY+2;
+            y = player2YPos + vY;
         }
         if (10 < y && y < play.height - player2.height - 5) {
             player2YPos = y;
