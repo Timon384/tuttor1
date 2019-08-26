@@ -29,21 +29,21 @@
     pipes.src = "img/pipe.png";
     bg.src = "img/bg.jpg";
 // старт игры
-function startGame() {
-    start = true;
-    if (start === true && scorePlayer1 == 9 || scorePlayer2 == 9)  {
-    console.log("start" + start)
-    scorePlayer1 = 0;
-    scorePlayer2 = 0;
-
-}
+    function startGame() {
+        start = true;
+        if (start === true && scorePlayer1 == 9 || scorePlayer2 == 9)  {
+            console.log("start" + start)
+            scorePlayer1 = 0;
+            scorePlayer2 = 0;
+    }
+    }
 // Отрисовка игры
-}
     function draw() {
-        ballMove();
-    context.drawImage(bg, 0, 0);
-    context.drawImage(ball,  xPos, yPos);
-    if ( lastPositionMouse() < 20) { // выборка для анимации картинки
+        ballMove(); // анимация мяча
+    context.drawImage(bg, 0, 0); // прорисовка бэкграунда
+    context.drawImage(ball,  xPos, yPos);// прорисовка мячика
+        // выборка позиции у для анимации картинки
+    if ( lastPositionMouse() < 20) {
         context.drawImage(player1, player1XPos, player1YPos );
     } else if ( lastPositionMouse() < 40 ) {
             context.drawImage(player1_2, player1XPos, player1YPos );
@@ -53,7 +53,7 @@ function startGame() {
         context.drawImage(player1, player1XPos, player1YPos);
     }
     else  context.drawImage(player1_2, player1XPos, player1YPos );
-
+    // прорисовка опонента
     context.drawImage(player2, player2Xpos, player2YPos);
     // отображение разделителя поля
     for (var i = 10; i < play.height; i += 45) {
@@ -89,7 +89,7 @@ function startGame() {
             context.fillStyle = "#000000";
 
             context.font = "italic 80pt Arial";
-            context.fillText(scorePlayer1 + "      " + scorePlayer2 , 350, 100);
+            context.fillText(scorePlayer2 + "      " + scorePlayer1 , 350, 100);
 
         }win();
 
