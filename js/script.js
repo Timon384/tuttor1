@@ -18,6 +18,7 @@
     var scorePlayer1 = 0;
     var scorePlayer2 = 0;
     document.addEventListener('mousemove', playerMove);
+    play.onclick = startGame;
     player1.src ="img/timon.png";
     player2.src ="img/pumba.png";
     hookah.src = "img/hookah.png";
@@ -25,11 +26,15 @@
     pipes.src = "img/pipe.png";
     bg.src = "img/bg.jpg";
 // Отрисовка игры
+function startGame() {
+    console.log("start")
 
+
+}
     function draw() {
         ballMove();
         aiMove();
-        wall();
+
     context.drawImage(bg, 0, 0);
     context.drawImage(hookah, 0, 50);
     context.drawImage(ball,  xPos, yPos);
@@ -41,8 +46,11 @@
         context.fillRect(play.width / 2 - 10, i, 20, 30);
     }
     }
+
+
 // движение мяча
     function ballMove() {
+        wall();
         xPos += vxPos;
         yPos += vyPos;
         requestAnimationFrame(draw);
@@ -59,6 +67,7 @@
         vyPos =    vyPos;
         scorePlayer2++;
         console.log("ГОЛ Пумбе! " + scorePlayer2);
+
     } else if (xPos <= 0 && vyPos < 0 && vxPos < 0 ){
         vxPos =  - vxPos;
         vyPos =    vyPos;
