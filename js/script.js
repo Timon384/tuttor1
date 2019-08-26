@@ -6,6 +6,7 @@
     var ball =    new   Image();
     var bg =      new   Image();
     var pipes =   new   Image();
+    var player1_2 =new   Image();
     var xPos=         400;
     var yPos=         230;
     var vxPos=          9;
@@ -20,6 +21,7 @@
     document.addEventListener('mousemove', playerMove);
     play.onclick = startGame;
     player1.src ="img/timon.png";
+    player1_2.src= "img/timon1.png"
     player2.src ="img/pumba.png";
     ball.src = "img/ball.png";
     pipes.src = "img/pipe.png";
@@ -39,7 +41,10 @@ function startGame() {
         ballMove();
     context.drawImage(bg, 0, 0);
     context.drawImage(ball,  xPos, yPos);
-    context.drawImage(player1, player1XPos, player1YPos );
+    if (lastPositionMouse() < 5) { // выборка для анимации картинки
+        context.drawImage(player1, player1XPos, player1YPos );
+    } else context.drawImage(player1_2, player1XPos, player1YPos );
+
     context.drawImage(player2, player2Xpos, player2YPos);
     // отображение разделителя поля
     for (var i = 10; i < play.height; i += 45) {
@@ -49,6 +54,26 @@ function startGame() {
     score();
 
     }
+  // функция определяющая последнюю цифру координаты Y для мышки
+  function lastPositionMouse() {
+      var y=player1YPos+'';
+      var last;
+
+      switch (y.length) {
+          case 2:
+              last=player1YPos-(Math.trunc(player1YPos/10)*10);
+              console.log(y.length +" " + last);
+              break
+          case 3:
+              last=player1YPos-(Math.trunc(player1YPos/10)*10);
+              console.log(y.length +" " + last);
+              break
+          default:
+              last=0;
+
+      }
+      return last;
+  }
 // отображение счета
     function score() {
         if (start == true) {
@@ -78,6 +103,7 @@ function startGame() {
     if (start !== false && scorePlayer1 < 9 && scorePlayer2 < 9 ) {
         wall();
         aiMove();
+        lastPositionMouse();
         xPos += vxPos;
         yPos += vyPos;
     }
