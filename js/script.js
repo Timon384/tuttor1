@@ -24,14 +24,14 @@
     ball.src = "img/ball.png";
     pipes.src = "img/pipe.png";
     bg.src = "img/bg.jpg";
-// Отрисовка игры
+// старт игры
 function startGame() {
     start = true;
     console.log("start" + start)
     scorePlayer1 = 0;
     scorePlayer2 = 0;
 
-
+// Отрисовка игры
 }
     function draw() {
         ballMove();
@@ -97,7 +97,7 @@ function startGame() {
     }
     }
 
-//движение "ИИ"
+// генерация движения опонента
     function aiMove() {
         var y;
         var vY= Math.abs(vyPos) + 1;
