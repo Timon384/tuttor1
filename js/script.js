@@ -43,13 +43,16 @@ function startGame() {
         ballMove();
     context.drawImage(bg, 0, 0);
     context.drawImage(ball,  xPos, yPos);
-    if ( lastPositionMouse() < 3) { // выборка для анимации картинки
+    if ( lastPositionMouse() < 20) { // выборка для анимации картинки
         context.drawImage(player1, player1XPos, player1YPos );
-    } else if ( lastPositionMouse() < 6 ) {
+    } else if ( lastPositionMouse() < 40 ) {
             context.drawImage(player1_2, player1XPos, player1YPos );
-    } else
-        context.drawImage(player1_3, player1XPos, player1YPos );
-
+    } else if ( lastPositionMouse() < 60 ) {
+        context.drawImage(player1_3, player1XPos, player1YPos);
+    } else if ( lastPositionMouse() < 80 ) {
+        context.drawImage(player1, player1XPos, player1YPos);
+    }
+    else  context.drawImage(player1_2, player1XPos, player1YPos );
 
     context.drawImage(player2, player2Xpos, player2YPos);
     // отображение разделителя поля
@@ -67,11 +70,11 @@ function startGame() {
 
       switch (y.length) {
           case 2:
-              last=player1YPos-(Math.trunc(player1YPos/10)*10);
+              last=player1YPos/*-(Math.trunc(player1YPos/10)*10);
               console.log(y.length +" " + last);
-              break
+              break*/
           case 3:
-              last=player1YPos-(Math.trunc(player1YPos/10)*10);
+              last=player1YPos-(Math.trunc(player1YPos/100)*100);
               console.log(y.length +" " + last);
               break
           default:
