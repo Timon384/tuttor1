@@ -1,21 +1,21 @@
 
     var play = document.getElementById("play");
     var context = play.getContext('2d');
-    var player1 = new Image();
-    var player2 = new Image();
-    var ball = new Image();
-    var bg = new Image();
-    var pipes = new Image();
-    var xPos=400;
-    var yPos=230;
-    var vxPos= 9;
-    var vyPos = 9;
+    var player1 = new   Image();
+    var player2 = new   Image();
+    var ball =    new   Image();
+    var bg =      new   Image();
+    var pipes =   new   Image();
+    var xPos=         400;
+    var yPos=         230;
+    var vxPos=          9;
+    var vyPos =         9;
     var player2Xpos = 890;
     var player2YPos = 300;
-    var player1XPos =0;
-    var player1YPos =200;
-    var scorePlayer1 = 0;
-    var scorePlayer2 = 0;
+    var player1XPos =   0;
+    var player1YPos = 200;
+    var scorePlayer1 =  0;
+    var scorePlayer2 =  0;
     var start = false;
     document.addEventListener('mousemove', playerMove);
     play.onclick = startGame;
@@ -27,16 +27,17 @@
 // старт игры
 function startGame() {
     start = true;
+    if (start === true && scorePlayer1 == 9 || scorePlayer2 == 9)  {
     console.log("start" + start)
     scorePlayer1 = 0;
     scorePlayer2 = 0;
 
+}
 // Отрисовка игры
 }
     function draw() {
         ballMove();
     context.drawImage(bg, 0, 0);
-    context.drawImage(hookah, 0, 50);
     context.drawImage(ball,  xPos, yPos);
     context.drawImage(player1, player1XPos, player1YPos );
     context.drawImage(player2, player2Xpos, player2YPos);
@@ -45,16 +46,33 @@ function startGame() {
         context.fillStyle = "#ccc";
         context.fillRect(play.width / 2 - 10, i, 20, 30);
     } requestAnimationFrame(draw);
-    if (start == true) {
-        context.fillStyle = "#000000";
-
-        context.font = "italic 80pt Arial";
-        context.fillText(scorePlayer1 + "      " + scorePlayer2 , 350, 100);
+    score();
 
     }
+// отображение счета
+    function score() {
+        if (start == true) {
+            context.fillStyle = "#000000";
+
+            context.font = "italic 80pt Arial";
+            context.fillText(scorePlayer1 + "      " + scorePlayer2 , 350, 100);
+
+        }win();
+
     }
+ // Отображение выиграша на экране.
+    function win() {
+        if (scorePlayer1 == 9) {
+            context.fillStyle = "#000000";
+            context.font = "italic 100pt Arial";
+            context.fillText("Pumba WIN!!", 120, 350);
 
-
+        } else if  (scorePlayer2 == 9) {
+            context.fillStyle = "#000000";
+            context.font = "italic 100pt Arial";
+            context.fillText("Timon WIN!!", 120, 350);
+        }
+            }
 // движение мяча
     function ballMove() {
     if (start !== false && scorePlayer1 < 9 && scorePlayer2 < 9 ) {
@@ -74,18 +92,18 @@ function startGame() {
         vxPos =  - vxPos;
         vyPos =    vyPos;
         scorePlayer2++;
-        console.log("ГОЛ Пумбе! " + scorePlayer2);
+
 
     } else if (xPos <= 0 && vyPos < 0 && vxPos < 0 && xPos <= 0 && vyPos > 0 && vxPos < 0  ){
         vxPos =  - vxPos;
         vyPos =    vyPos;
         scorePlayer1++;
-        console.log("ГОЛ Тимону! " + scorePlayer1);
+
     } else if (xPos <= 0 && vyPos > 0 && vxPos < 0 ){
         vxPos =  - vxPos;
         vyPos =    vyPos;
         scorePlayer1++;
-        console.log ("ГОЛ Тимону! " + scorePlayer1);
+
 
     } else {
         vxPos =    vxPos;
