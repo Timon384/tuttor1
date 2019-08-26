@@ -3,38 +3,38 @@
     var context = play.getContext('2d');
     var player1 = new Image();
     var player2 = new Image();
-    var hookah = new Image();
     var ball = new Image();
     var bg = new Image();
     var pipes = new Image();
     var xPos=400;
     var yPos=230;
-    var vxPos= 5;
-    var vyPos = 5;
+    var vxPos= 9;
+    var vyPos = 9;
     var player2Xpos = 890;
     var player2YPos = 300;
     var player1XPos =0;
     var player1YPos =200;
     var scorePlayer1 = 0;
     var scorePlayer2 = 0;
+    var start = false;
     document.addEventListener('mousemove', playerMove);
     play.onclick = startGame;
     player1.src ="img/timon.png";
     player2.src ="img/pumba.png";
-    hookah.src = "img/hookah.png";
     ball.src = "img/ball.png";
     pipes.src = "img/pipe.png";
     bg.src = "img/bg.jpg";
 // Отрисовка игры
 function startGame() {
-    console.log("start")
+    start = true;
+    console.log("start" + start)
+    scorePlayer1 = 0;
+    scorePlayer2 = 0;
 
 
 }
     function draw() {
         ballMove();
-        aiMove();
-
     context.drawImage(bg, 0, 0);
     context.drawImage(hookah, 0, 50);
     context.drawImage(ball,  xPos, yPos);
@@ -44,17 +44,25 @@ function startGame() {
     for (var i = 10; i < play.height; i += 45) {
         context.fillStyle = "#ccc";
         context.fillRect(play.width / 2 - 10, i, 20, 30);
+    } requestAnimationFrame(draw);
+    if (start == true) {
+        context.fillStyle = "#000000";
+
+        context.font = "italic 80pt Arial";
+        context.fillText(scorePlayer1 + "      " + scorePlayer2 , 350, 100);
+
     }
     }
 
 
 // движение мяча
     function ballMove() {
+    if (start !== false && scorePlayer1 < 9 && scorePlayer2 < 9 ) {
         wall();
+        aiMove();
         xPos += vxPos;
         yPos += vyPos;
-        requestAnimationFrame(draw);
-
+    }
     }
 // Обработка пересечения с полями
     function wall() {
@@ -68,7 +76,7 @@ function startGame() {
         scorePlayer2++;
         console.log("ГОЛ Пумбе! " + scorePlayer2);
 
-    } else if (xPos <= 0 && vyPos < 0 && vxPos < 0 ){
+    } else if (xPos <= 0 && vyPos < 0 && vxPos < 0 && xPos <= 0 && vyPos > 0 && vxPos < 0  ){
         vxPos =  - vxPos;
         vyPos =    vyPos;
         scorePlayer1++;
@@ -76,6 +84,9 @@ function startGame() {
     } else if (xPos <= 0 && vyPos > 0 && vxPos < 0 ){
         vxPos =  - vxPos;
         vyPos =    vyPos;
+        scorePlayer1++;
+        console.log ("ГОЛ Тимону! " + scorePlayer1);
+
     } else {
         vxPos =    vxPos;
         vyPos =  - vyPos;
