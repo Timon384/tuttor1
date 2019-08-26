@@ -8,8 +8,8 @@
     var pipes =   new   Image();
     var player1_2 =new   Image();
     var player1_3 =new   Image();
-    var xPos=         400;
-    var yPos=         230;
+    var xPos=         getRndInteger(200,800);
+    var yPos=         getRndInteger(100,500);;
     var vxPos=          9;
     var vyPos =         9;
     var player2Xpos = 890;
@@ -28,6 +28,10 @@
     ball.src = "img/ball.png";
     pipes.src = "img/pipe.png";
     bg.src = "img/bg.jpg";
+  //  функция рандомизации для начальных координат
+    function getRndInteger(min, max) {
+        return Math.floor(Math.random() * (max - min) ) + min;
+    }
 // старт игры
     function startGame() {
         start = true;
@@ -89,7 +93,7 @@
             context.fillStyle = "#000000";
 
             context.font = "italic 80pt Arial";
-            context.fillText(scorePlayer2 + "      " + scorePlayer1 , 350, 100);
+            context.fillText(scorePlayer2 + "      " + scorePlayer1 , 350, 200);
 
         }win();
 
