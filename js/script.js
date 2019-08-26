@@ -7,6 +7,7 @@
     var bg =      new   Image();
     var pipes =   new   Image();
     var player1_2 =new   Image();
+    var player1_3 =new   Image();
     var xPos=         400;
     var yPos=         230;
     var vxPos=          9;
@@ -22,6 +23,7 @@
     play.onclick = startGame;
     player1.src ="img/timon.png";
     player1_2.src= "img/timon1.png"
+    player1_3.src= "img/timon2.png"
     player2.src ="img/pumba.png";
     ball.src = "img/ball.png";
     pipes.src = "img/pipe.png";
@@ -41,9 +43,13 @@ function startGame() {
         ballMove();
     context.drawImage(bg, 0, 0);
     context.drawImage(ball,  xPos, yPos);
-    if (lastPositionMouse() < 5) { // выборка для анимации картинки
+    if ( lastPositionMouse() < 3) { // выборка для анимации картинки
         context.drawImage(player1, player1XPos, player1YPos );
-    } else context.drawImage(player1_2, player1XPos, player1YPos );
+    } else if ( lastPositionMouse() < 6 ) {
+            context.drawImage(player1_2, player1XPos, player1YPos );
+    } else
+        context.drawImage(player1_3, player1XPos, player1YPos );
+
 
     context.drawImage(player2, player2Xpos, player2YPos);
     // отображение разделителя поля
